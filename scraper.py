@@ -58,14 +58,14 @@ def convert_mth_strings ( mth_string ):
     return mth_string
 # pull down the content from the webpage
 html = urllib2.urlopen(url)
-soup = BeautifulSoup(html)
+soup = BeautifulSoup(html, 'lxml')
 # find all entries with the required class
 block = soup.find('div', attrs = {'id':'submenu'})
 links = block.findAll('a', href=True)
 for link in links:
     url_links = 'http://www.calderdale.gov.uk/council/finances/income-spending/' +link['href']
     html = urllib2.urlopen(url_links)
-    soup = BeautifulSoup(html)
+    soup = BeautifulSoup(html, 'lxml')
     location = soup.find('h3', text = re.compile('Data files')).find_next('ul')
     links_urls = location.findAll('a', href=True)
     for links_url in links_urls:
